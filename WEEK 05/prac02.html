@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News App</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f6f7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    h1 {
+      color: #34495e;
+      text-align: center;
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+    .container {
+      max-width: 800px;
+      padding: 30px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    input, button {
+      width: 100%;
+      padding: 15px;
+      font-size: 16px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #3498db;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    #newsInfo {
+      margin-top: 20px;
+    }
+    .news-item {
+      margin: 15px 0;
+      padding: 10px;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .news-item h3 {
+      font-size: 18px;
+      margin: 0;
+    }
+    .news-item p {
+      font-size: 16px;
+      color: #555;
+    }
+    .news-item a {
+      color: #3498db;
+      text-decoration: none;
+    }
+    .error {
+      color: #e74c3c;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>India News App</h1>
+    <button id="getNewsBtn">Get Latest News</button>
+
+    <div id="newsInfo">
+      <div id="newsResult"></div>
+    </div>
+  </div>
+
+  <script>
+    const apiKey = 'pub_70305106fb53d07008fd142a8c3268196bf2c';  // Replace with your NewsAPI key
+
+    document.getElementById('getNewsBtn').addEventListener('click', async function() {
+      const url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=${apiKey}`;
+
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error('Failed to fetch news');
+        }
+
+        const data = await response.json();
+        
+        // Check if news data is available
+        if (data.articles && data.articles.length > 0) {
+          let newsHtml = '';
+          data.articles.forEach(article => {
+            newsHtml += `
+              <div class="news-item">
+                <h3><a href="${article.url}" target="_blank">${article.title}</a></h3>
+                <p>${article.description ? article.description : 'No description available.'}</p>
+                <p><small>Source: ${article.source.name}</small></p>
+              </div>
+            `;
+          });
+          document.getElementById('newsResult').innerHTML = newsHtml;
+        } else {
+          document.getElementById('newsResult').innerHTML = '<p class="error">No news available.</p>';
+        }
+
+      } catch (error) {
+        document.getElementById('newsResult').innerHTML = `<p class="error">${error.message}</p>`;
+      }
+    });
+  </script>
+
+</body>
+</html>
