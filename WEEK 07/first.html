@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Piano</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .piano {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .key {
+            width: 50px;
+            height: 200px;
+            border: 1px solid black;
+            text-align: center;
+            line-height: 180px;
+            font-size: 16px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .white { background: white; }
+        .black {
+            background: black;
+            color: white;
+            width: 30px;
+            height: 120px;
+            position: absolute;
+            margin-left: -15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Basic Piano (2 Octaves)</h1>
+    <div class="piano">
+        <div class="key white" data-note="C4">C</div>
+        <div class="key black" data-note="C#4">C#</div>
+        <div class="key white" data-note="D4">D</div>
+        <div class="key black" data-note="D#4">D#</div>
+        <div class="key white" data-note="E4">E</div>
+        <div class="key white" data-note="F4">F</div>
+        <div class="key black" data-note="F#4">F#</div>
+        <div class="key white" data-note="G4">G</div>
+        <div class="key black" data-note="G#4">G#</div>
+        <div class="key white" data-note="A4">A</div>
+        <div class="key black" data-note="A#4">A#</div>
+        <div class="key white" data-note="B4">B</div>
+        <div class="key white" data-note="C5">C</div>
+        <div class="key black" data-note="C#5">C#</div>
+        <div class="key white" data-note="D5">D</div>
+        <div class="key black" data-note="D#5">D#</div>
+        <div class="key white" data-note="E5">E</div>
+        <div class="key white" data-note="F5">F</div>
+        <div class="key black" data-note="F#5">F#</div>
+        <div class="key white" data-note="G5">G</div>
+        <div class="key black" data-note="G#5">G#</div>
+        <div class="key white" data-note="A5">A</div>
+        <div class="key black" data-note="A#5">A#</div>
+        <div class="key white" data-note="B5">B</div>
+    </div>
+    <audio id="piano-sounds"></audio>
+    <script>
+        const keys = document.querySelectorAll(".key");
+        keys.forEach(key => {
+            key.addEventListener("click", () => playSound(key.dataset.note));
+        });
+        function playSound(note) {
+            const audio = new Audio(`https://pianosounds.s3.amazonaws.com/${note}.mp3`);
+            audio.play();
+        }
+    </script>
+</body>
+</html>
