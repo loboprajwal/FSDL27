@@ -1,0 +1,30 @@
+/* Reset the body margin and set full viewport height */
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+}
+
+/* Style for the centered div */
+.centered-div {
+    width: 300px;
+    padding: 20px;
+    border: 2px solid #333;
+    text-align: center;
+    background-color: white;
+}
+
+/* Heading styles */
+h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+/* Paragraph styles */
+p {
+    font-size: 16px;
+    color: #555;
+}
